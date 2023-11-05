@@ -1,0 +1,4 @@
+pip
+notebook
+jupytext
+selenium
