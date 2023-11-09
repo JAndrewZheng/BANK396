@@ -32,13 +32,12 @@ def generate_audio(text, i):
     velocidad_X = 1.3 # No puede estar por debajo de 1.0
     sound = AudioSegment.from_file(root)
     so = sound.speedup(velocidad_X, 150, 25)
-    '''
+    
     aud = MP3(root)
     len1 = aud.info.length - 0.5
     print(len1)
     fin = so[:len1]
 
-    '''
     
     so.export(name, format = 'mp3')
 
@@ -166,7 +165,6 @@ def concat(num):
     audio = mpy.AudioFileClip("outputTEMP_MPY_wvf_snd.mp3")
 
     final_video = video1.set_audio(audio)
-
 
     final_video.write_videofile("final_outputREAL.mp4",
                                 fps=90,
