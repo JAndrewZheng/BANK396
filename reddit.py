@@ -31,7 +31,7 @@ for i,submission in enumerate(subreddit.hot(limit = 100)):
     titles.append(submission.title)
     scores.append(submission.score)
     ids.append(submission.id)
-    no_zero_ws = submission.selftext.replace('&#x200B;', '').replace('\n', '').split(' ')
+    no_zero_ws = submission.selftext.replace('&#x200B;', '').replace('\n', '').replace('fuck', 'f').replace('ass', 'a').replace('shit','crap').replace('dead', 'unalived').replace('kill', 'unalive').replace('suicide', 'unalive').replace('dick', 'd').split(' ')
     sentence = [' '.join(no_zero_ws[i:i+10]) for i in range(0,len(no_zero_ws),10)]
     if not os.path.exists(f"text_files/{subreddit_name}"):
         os.makedirs(f"text_files/{subreddit_name}")
