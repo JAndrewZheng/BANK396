@@ -41,8 +41,6 @@ def generate_audio(text, i):
     
     so.export(name, format = 'mp3')
 
-
-
     return name
 
 def get_audio_files(text):
@@ -175,11 +173,25 @@ def concat(num):
                                 )
 
 
+def make_images(mov):
+    vidcap = cv2.VideoCapture(mov)
+    success,image = vidcap.read()
+    count = 0
+    while success:
+      cv2.imwrite("images/frame%d.jpg" % count, image)     # save frame as JPEG file
+      success,image = vidcap.read()
+      print('Read a new frame: ', success)
+      count += 1
+    
 if __name__ == "__main__":
-    text = get_text("demofile.txt")
-    files = get_audio_files(text)
-    num = make_vids(files)
-    concat(num)
+    #Run this 1 time total then comment it out 
+    #make_images("minecraft_vid.mov")
+
+    #always run these to create video 
+    #text = get_text("text_files/wholesomestories/10jjry8.txt")
+    #files = get_audio_files(text)
+    #num = make_vids(files)
+    concat(2)
 
 
 
