@@ -6,7 +6,7 @@ username = "Working_Song8171"
 password = 'password1234'
 client_id = '7cCDsGLtpcFqgksYpsGfCg'
 client_secret = 'zbSHdg-FsyNR3ZUf3xyBS9UXPjFQvQ'
-subreddit_name = 'wholesomestories'
+subreddit_name = 'AmITheAsshole'
 
 user_agent = "praw_scraper_1.0"
 
@@ -31,16 +31,19 @@ for i,submission in enumerate(subreddit.hot(limit = 100)):
     titles.append(submission.title)
     scores.append(submission.score)
     ids.append(submission.id)
-    no_zero_ws = submission.selftext.replace('&#x200B;', '').replace('\n', '').replace('fuck', 'f').replace('ass', 'a').replace('shit','crap').replace('dead', 'unalived').replace('kill', 'unalive').replace('suicide', 'unalive').replace('dick', 'd').split(' ')
-    sentence = [' '.join(no_zero_ws[i:i+10]) for i in range(0,len(no_zero_ws),10)]
+    text = submission.selftext
+    if ('???' in text and not text.endswith('???')):
+        text = text.replace('???', "'")
+    no_zero_ws = text.replace('&#x200B;', '').replace('\n', '').replace('fuck', 'f').replace('ass', 'a').replace('shit','crap').replace('dead', 'unalived').replace('kill', 'unalive').replace('suicide', 'unalive').replace('dick', 'd').split(' ')
     if not os.path.exists(f"text_files/{subreddit_name}"):
         os.makedirs(f"text_files/{subreddit_name}")
-                      
-    f = open(f"text_files/{subreddit_name}/{submission.id}.txt", "a")
-    for i in sentence:   
-        f.write(i)
-        f.write('\n')
-    f.close()
+    
+    if not os.path.exists(f"text_files/{subreddit_name}/{submission.id}.txt"):
+        f = open(f"text_files/{subreddit_name}/{submission.id}.txt", "a")
+        for i in no_zero_ws:   
+            f.write(i)
+            f.write('\n')
+        f.close()
 
     
 df = pd.DataFrame({'id': ids, 'title': titles, 'score': scores})
